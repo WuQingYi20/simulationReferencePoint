@@ -1,0 +1,58 @@
+{
+  "methods": {
+    "global": {
+      "final_coord": 0.9125,
+      "favoritism": 0.01041666666666663
+    },
+    "group": {
+      "final_coord": 0.9125,
+      "favoritism": 0.01041666666666663
+    },
+    "pairwise": {
+      "final_coord": 0.9125,
+      "favoritism": 0.01041666666666663
+    },
+    "recent": {
+      "final_coord": 0.9125,
+      "favoritism": 0.01041666666666663
+    },
+    "bayesian": {
+      "final_coord": 0.9125,
+      "favoritism": 0.01041666666666663
+    }
+  },
+  "games": {
+    "coordination": {
+      "final_coord": 0.9125,
+      "favoritism": 0.01041666666666663,
+      "group0_A": 0.6425,
+      "group1_A": 0.3225
+    },
+    "stag_hunt": {
+      "final_coord": 0.90625,
+      "favoritism": -0.03333333333333344,
+      "group0_A": 0.16,
+      "group1_A": 0.09
+    },
+    "chicken": {
+      "final_coord": 0.175,
+      "favoritism": 0.07916666666666666,
+      "group0_A": 0.6375,
+      "group1_A": 0.4275
+    }
+  },
+  "info_treatments": {
+    "full": {
+      "final_coord": 0.9125,
+      "favoritism": 0.01041666666666663
+    },
+    "group_only": {
+      "final_coord": 0.9375,
+      "favoritism": -0.029166666666666785
+    },
+    "anonymous": {
+      "final_coord": 0.94375,
+      "favoritism": -0.025000000000000022
+    }
+  }
+}

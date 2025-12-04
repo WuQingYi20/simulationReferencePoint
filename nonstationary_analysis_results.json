@@ -1,0 +1,219 @@
+{
+  "metadata": {
+    "date": "2025-12-04",
+    "shock_round": 100,
+    "n_replications": 30,
+    "base_config": {
+      "n_agents": 16,
+      "n_rounds": 200,
+      "n_groups": 2,
+      "game_type": "coordination",
+      "lambda_loss": 2.0,
+      "initial_group_bias": 0.8,
+      "n_initial_rounds": 10,
+      "info_treatment": "full",
+      "matching_type": "random",
+      "recency_decay": 0.9,
+      "min_history_for_belief": 1
+    },
+    "weight_configurations": {
+      "Recent-dominant": {
+        "recent": 0.9,
+        "group": 0.05,
+        "global": 0.05
+      },
+      "Global-dominant": {
+        "recent": 0.05,
+        "group": 0.05,
+        "global": 0.9
+      },
+      "Group-dominant": {
+        "recent": 0.05,
+        "group": 0.9,
+        "global": 0.05
+      },
+      "Balanced": {
+        "recent": 0.33,
+        "group": 0.33,
+        "global": 0.34
+      },
+      "Original": {
+        "recent": 0.5,
+        "group": 0.3,
+        "global": 0.2
+      }
+    }
+  },
+  "results": {
+    "Recent-dominant": {
+      "weights": {
+        "recent": 0.9,
+        "group": 0.05,
+        "global": 0.05
+      },
+      "adaptation_metrics": {
+        "pre_shock_mean": {
+          "mean": 0.8397916666666665,
+          "std": 0.03184702682851402,
+          "se": 0.005814444994483113
+        },
+        "dip_magnitude": {
+          "mean": 0.2564583333333334,
+          "std": 0.10219154773346432,
+          "se": 0.018657538626661446
+        },
+        "recovery_time": {
+          "mean": 0.3333333333333333,
+          "std": 0.6064784348631227,
+          "se": 0.11072730647165328
+        },
+        "adaptation_rate": {
+          "mean": 0.001221804511278177,
+          "std": 0.004152318005759949,
+          "se": 0.0007581060792298635
+        },
+        "post_shock_final": {
+          "mean": 0.875625,
+          "std": 0.03132963989909391,
+          "se": 0.005719983497082537
+        }
+      }
+    },
+    "Global-dominant": {
+      "weights": {
+        "recent": 0.05,
+        "group": 0.05,
+        "global": 0.9
+      },
+      "adaptation_metrics": {
+        "pre_shock_mean": {
+          "mean": 0.8397916666666665,
+          "std": 0.03184702682851402,
+          "se": 0.005814444994483113
+        },
+        "dip_magnitude": {
+          "mean": 0.2564583333333334,
+          "std": 0.10219154773346432,
+          "se": 0.018657538626661446
+        },
+        "recovery_time": {
+          "mean": 0.3333333333333333,
+          "std": 0.6064784348631227,
+          "se": 0.11072730647165328
+        },
+        "adaptation_rate": {
+          "mean": 0.001221804511278177,
+          "std": 0.004152318005759949,
+          "se": 0.0007581060792298635
+        },
+        "post_shock_final": {
+          "mean": 0.875625,
+          "std": 0.03132963989909391,
+          "se": 0.005719983497082537
+        }
+      }
+    },
+    "Group-dominant": {
+      "weights": {
+        "recent": 0.05,
+        "group": 0.9,
+        "global": 0.05
+      },
+      "adaptation_metrics": {
+        "pre_shock_mean": {
+          "mean": 0.8397916666666665,
+          "std": 0.03184702682851402,
+          "se": 0.005814444994483113
+        },
+        "dip_magnitude": {
+          "mean": 0.2564583333333334,
+          "std": 0.10219154773346432,
+          "se": 0.018657538626661446
+        },
+        "recovery_time": {
+          "mean": 0.3333333333333333,
+          "std": 0.6064784348631227,
+          "se": 0.11072730647165328
+        },
+        "adaptation_rate": {
+          "mean": 0.001221804511278177,
+          "std": 0.004152318005759949,
+          "se": 0.0007581060792298635
+        },
+        "post_shock_final": {
+          "mean": 0.875625,
+          "std": 0.03132963989909391,
+          "se": 0.005719983497082537
+        }
+      }
+    },
+    "Balanced": {
+      "weights": {
+        "recent": 0.33,
+        "group": 0.33,
+        "global": 0.34
+      },
+      "adaptation_metrics": {
+        "pre_shock_mean": {
+          "mean": 0.8397916666666665,
+          "std": 0.03184702682851402,
+          "se": 0.005814444994483113
+        },
+        "dip_magnitude": {
+          "mean": 0.2564583333333334,
+          "std": 0.10219154773346432,
+          "se": 0.018657538626661446
+        },
+        "recovery_time": {
+          "mean": 0.3333333333333333,
+          "std": 0.6064784348631227,
+          "se": 0.11072730647165328
+        },
+        "adaptation_rate": {
+          "mean": 0.001221804511278177,
+          "std": 0.004152318005759949,
+          "se": 0.0007581060792298635
+        },
+        "post_shock_final": {
+          "mean": 0.875625,
+          "std": 0.03132963989909391,
+          "se": 0.005719983497082537
+        }
+      }
+    },
+    "Original": {
+      "weights": {
+        "recent": 0.5,
+        "group": 0.3,
+        "global": 0.2
+      },
+      "adaptation_metrics": {
+        "pre_shock_mean": {
+          "mean": 0.8397916666666665,
+          "std": 0.03184702682851402,
+          "se": 0.005814444994483113
+        },
+        "dip_magnitude": {
+          "mean": 0.2564583333333334,
+          "std": 0.10219154773346432,
+          "se": 0.018657538626661446
+        },
+        "recovery_time": {
+          "mean": 0.3333333333333333,
+          "std": 0.6064784348631227,
+          "se": 0.11072730647165328
+        },
+        "adaptation_rate": {
+          "mean": 0.001221804511278177,
+          "std": 0.004152318005759949,
+          "se": 0.0007581060792298635
+        },
+        "post_shock_final": {
+          "mean": 0.875625,
+          "std": 0.03132963989909391,
+          "se": 0.005719983497082537
+        }
+      }
+    }
+  }
+}
