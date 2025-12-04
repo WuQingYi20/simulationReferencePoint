@@ -4,7 +4,6 @@
 
 **Author**: Yifan
 **Date**: December 2025
-**Institution**: [Your Institution]
 
 ---
 
@@ -25,7 +24,6 @@ This question is motivated by the observation that in multi-level coordination p
 ### Kőszegi-Rabin Reference-Dependent Utility
 
 The model implements the KR utility function:
-
 **U = m(c) + η · n(c|r)**
 
 where:
