@@ -230,7 +230,7 @@ All analyses use **30 replications per condition** with different random seeds (
 - Effect sizes (Cohen's d)
 - Statistical power ≥ 0.80 for medium effects
 
-**Total computational effort**: 2,700 simulations across all analyses (including short time horizon and neutral start tests).
+**Total computational effort**: 3,780 simulations across all analyses (including short time horizon, neutral start, and no-initial-phase tests).
 
 ---
 
@@ -319,6 +319,56 @@ Tested **5 weight configurations** across **3 game types**:
 - **All game types**: Coordination, Stag Hunt, Chicken
 
 The critical factor is that agents UPDATE beliefs from experience, not HOW they weight different information sources.
+
+#### Impact of Initial Convention Phase
+
+**Conditions**: N=16 agents, random matching, λ=2.0, full information, 30 replications per condition
+
+Tested WITH vs WITHOUT initial convention establishment phase:
+
+**WITH initial phase** (n_initial_rounds=10, β=0.8):
+- Rounds 0-9: Group 0 chooses A with 80% probability, Group 1 chooses B with 80% probability
+- Creates artificial group differentiation and conventions
+
+**WITHOUT initial phase** (n_initial_rounds=0):
+- Pure KR utility maximization from round 0
+- Agents start with uninformed priors (reference point = 0.5)
+
+**Results (T=200 rounds)**:
+
+| Game | WITH Initial Phase | WITHOUT Initial Phase | Difference |
+|------|-------------------|----------------------|------------|
+| **Coordination** | 88.7% coord, -0.4% favor | **90.4% coord**, -1.0% favor | **+1.7% coord** |
+| **Stag Hunt** | 90.2% coord, -2.2% favor | **91.4% coord**, +2.1% favor | **+1.2% coord** |
+| **Chicken** | 23.6% coord, +10.9% favor | **29.4% coord**, -4.0% favor | **+5.8% coord** |
+
+**Key findings**:
+
+1. **Initial phase REDUCES coordination efficiency**:
+   - Pure learning (no initial phase) achieves +1.7% to +5.8% higher coordination
+   - Initial conventions create "coordination debt" that takes 190 rounds to partially resolve
+
+2. **Initial phase CREATES group favoritism**:
+   - Chicken with initial phase: +10.9% favoritism (strong in-group bias)
+   - Chicken without initial phase: -4.0% favoritism (minimal bias)
+   - Difference: 14.9 percentage points of favoritism induced by initial conventions
+
+3. **Chicken game shows largest effect** (+5.8% coordination improvement):
+   - With initial phase: Groups develop opposite strategies (aggressive vs passive)
+   - Without initial phase: Groups learn balanced strategies together
+
+4. **Weights STILL don't matter** (0.0% variance in both conditions):
+   - Tested 4 weight configurations × 3 games × 3 time horizons (T∈{30,50,200})
+   - Zero variance across all 36 combinations
+
+**Interpretation for climate negotiations**:
+
+The initial convention phase models **pre-existing institutional norms** (e.g., US vs EU climate policies). Results show:
+- **Path dependence**: Initial conventions impose a ~2% "cost of divergence"
+- **Persistence**: Group favoritism (+10.9% in Chicken) emerges from different starting norms
+- **Adaptive learning**: Despite initial divergence, agents achieve 88.7-90.2% coordination, showing learning can overcome institutional barriers
+
+**Design choice**: The baseline simulations USE the initial phase (β=0.8, 10 rounds) because it more realistically models institutional coordination where actors have pre-existing norms and conventions.
 
 ### 2. Game Structure Has Dramatic Effects
 
@@ -414,12 +464,13 @@ The codebase is fully documented and ready for these extensions.
 
 **Code**:
 - `Simulation.py` - Core simulation engine (1,182 lines)
-- `StatisticalAnalysis.py` - Multi-replication validation (T=200, β=0.8)
+- `StatisticalAnalysis.py` - Multi-replication validation (T=200, β=0.8, initial phase)
 - `ParameterSensitivityAnalysis.py` - Weight sweep analysis (19 combinations, T=200)
 - `MatchingAnalysis.py` - Random vs round-robin comparison
 - `NonStationaryAnalysis.py` - Environmental shock tests (T=200)
-- `ShortHorizonAnalysis.py` - Short time horizon tests (T=50, β=0.8)
-- `NeutralStartAnalysis.py` - **Neutral start tests (T=30, β=0.5) - definitive test**
+- `ShortHorizonAnalysis.py` - Short time horizon tests (T=50, β=0.8, initial phase)
+- `NeutralStartAnalysis.py` - Neutral start tests (T=30, β=0.5, initial phase)
+- `NoInitialPhaseAnalysis.py` - **No initial phase tests (pure learning from round 0)**
 
 **Documentation**:
 - `README.md` - This file (comprehensive overview for supervisors)
@@ -429,11 +480,12 @@ The codebase is fully documented and ready for these extensions.
 - `PARAMETER_SENSITIVITY_REPORT.md` - Weight analysis findings
 
 **Data**:
-- `statistical_analysis_results.json` - Main statistical results (T=200, β=0.8)
+- `statistical_analysis_results.json` - Main statistical results (T=200, β=0.8, with initial phase)
 - `parameter_sensitivity_results.json` - 19 weight combinations (T=200, β=0.8)
 - `matching_protocol_analysis.json` - Matching comparison
 - `nonstationary_analysis_results.json` - Environmental shocks (T=200)
-- `short_horizon_results.json` - Short time horizon (T=50, β=0.8)
-- `neutral_start_results.json` - **Neutral start (T=30, β=0.5) - definitive test**
+- `short_horizon_results.json` - Short time horizon (T=50, β=0.8, with initial phase)
+- `neutral_start_results.json` - Neutral start (T=30, β=0.5, with initial phase)
+- `no_initial_phase_results.json` - **No initial phase (pure learning from round 0)**
 
 All analyses use reproducible random seeds and are fully replicable.
