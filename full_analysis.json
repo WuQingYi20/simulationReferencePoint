@@ -1,54 +1,54 @@
 {
   "methods": {
     "global": {
-      "final_coord": 0.9125,
-      "favoritism": 0.01041666666666663
+      "final_coord": 0.94375,
+      "favoritism": -0.025000000000000022
     },
     "group": {
-      "final_coord": 0.9125,
-      "favoritism": 0.01041666666666663
+      "final_coord": 0.94375,
+      "favoritism": -0.025000000000000022
     },
     "pairwise": {
-      "final_coord": 0.9125,
-      "favoritism": 0.01041666666666663
+      "final_coord": 0.94375,
+      "favoritism": -0.025000000000000022
     },
     "recent": {
-      "final_coord": 0.9125,
-      "favoritism": 0.01041666666666663
+      "final_coord": 0.94375,
+      "favoritism": -0.025000000000000022
     },
     "bayesian": {
-      "final_coord": 0.9125,
-      "favoritism": 0.01041666666666663
+      "final_coord": 0.94375,
+      "favoritism": -0.025000000000000022
     }
   },
   "games": {
     "coordination": {
-      "final_coord": 0.9125,
-      "favoritism": 0.01041666666666663,
-      "group0_A": 0.6425,
-      "group1_A": 0.3225
+      "final_coord": 0.94375,
+      "favoritism": -0.025000000000000022,
+      "group0_A": 0.945,
+      "group1_A": 0.975
     },
     "stag_hunt": {
-      "final_coord": 0.90625,
-      "favoritism": -0.03333333333333344,
-      "group0_A": 0.16,
-      "group1_A": 0.09
+      "final_coord": 0.91875,
+      "favoritism": -0.05833333333333335,
+      "group0_A": 0.0575,
+      "group1_A": 0.0375
     },
     "chicken": {
-      "final_coord": 0.175,
-      "favoritism": 0.07916666666666666,
-      "group0_A": 0.6375,
-      "group1_A": 0.4275
+      "final_coord": 0.2875,
+      "favoritism": 0.47083333333333327,
+      "group0_A": 0.92,
+      "group1_A": 0.3125
     }
   },
   "info_treatments": {
     "full": {
-      "final_coord": 0.9125,
-      "favoritism": 0.01041666666666663
+      "final_coord": 0.94375,
+      "favoritism": -0.025000000000000022
     },
     "group_only": {
-      "final_coord": 0.9375,
-      "favoritism": -0.029166666666666785
+      "final_coord": 0.93125,
+      "favoritism": -0.016666666666666607
     },
     "anonymous": {
       "final_coord": 0.94375,

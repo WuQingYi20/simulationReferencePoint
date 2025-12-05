@@ -45,7 +45,7 @@ class SimConfig:
     payoff_BB: float = None  # Both choose B
     
     # KR utility parameters
-    lambda_loss: float = 2.0       # Loss aversion coefficient (λ > 1)
+    lambda_loss: float = 2.25      # Loss aversion coefficient (λ > 1)
     eta: float = 1.0               # Weight on gain-loss utility
     
     # Reference point formation weights (research variables)
@@ -539,53 +539,109 @@ class Agent:
         info_treatment: str
     ) -> float:
         """
-        Estimate P(partner plays A) based on available information
-        
-        info_treatment:
-        - "full": know partner_id and partner_group
-        - "group_only": know only partner_group
-        - "anonymous": know nothing specific
+        Estimate P(partner plays A) using Bayesian weighting of information sources
+
+        PLAN C IMPLEMENTATION: Weights now affect partner belief formation!
+
+        info_treatment controls which information sources are observable:
+        - "full": can observe partner_id, partner_group, recent history, and global stats
+        - "group_only": can observe partner_group, recent history, and global stats
+        - "anonymous": can only observe recent history and global stats
+
+        Weights control how much each observable source influences the belief.
         """
+        cfg = self.config
+
+        estimates = []
+        precisions = []
+
         if info_treatment == "full":
-            # Use pairwise history if available, fallback to group, then global
+            # Can use all information sources
+
+            # Pairwise history (highest specificity - always gets extra weight)
             partner_hist = self.history.get_partner_history(partner_id)
-            if partner_hist:
-                return sum(1 for r in partner_hist if r.partner_action == Action.A) / len(partner_hist)
-            
+            if len(partner_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in partner_hist if r.partner_action == Action.A) / len(partner_hist)
+                estimates.append(prob_A)
+                precisions.append(len(partner_hist) * 2.0)  # Extra weight for specificity
+
+            # Group history (weighted by weight_group)
             group_hist = self.history.get_group_history(partner_group)
-            if group_hist:
-                return sum(1 for r in group_hist if r.partner_action == Action.A) / len(group_hist)
-            
+            if len(group_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in group_hist if r.partner_action == Action.A) / len(group_hist)
+                estimates.append(prob_A)
+                # Weight relative to recent interactions
+                precisions.append(len(group_hist) * cfg.weight_group / cfg.weight_recent)
+
+            # Recent history (weighted by weight_recent)
+            recent_hist = self.history.get_recent_history(n=10)
+            if len(recent_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in recent_hist if r.partner_action == Action.A) / len(recent_hist)
+                estimates.append(prob_A)
+                precisions.append(len(recent_hist) * cfg.weight_recent / cfg.weight_group)
+
+            # Global history (weighted by weight_global)
             global_hist = self.history.get_all_history()
-            if global_hist:
-                return sum(1 for r in global_hist if r.partner_action == Action.A) / len(global_hist)
-            
-            return 0.5
-        
+            if len(global_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in global_hist if r.partner_action == Action.A) / len(global_hist)
+                estimates.append(prob_A)
+                precisions.append(len(global_hist) * cfg.weight_global / cfg.weight_recent)
+
         elif info_treatment == "group_only":
-            # Only use group-level history
+            # Can only observe group and global patterns (not partner-specific)
+
+            # Group history (weighted by weight_group)
             group_hist = self.history.get_group_history(partner_group)
-            if group_hist:
-                return sum(1 for r in group_hist if r.partner_action == Action.A) / len(group_hist)
-            
-            # Fallback to global
+            if len(group_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in group_hist if r.partner_action == Action.A) / len(group_hist)
+                estimates.append(prob_A)
+                # In group_only, group info gets baseline precision
+                precisions.append(len(group_hist) * cfg.weight_group)
+
+            # Recent history (weighted by weight_recent)
+            recent_hist = self.history.get_recent_history(n=10)
+            if len(recent_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in recent_hist if r.partner_action == Action.A) / len(recent_hist)
+                estimates.append(prob_A)
+                precisions.append(len(recent_hist) * cfg.weight_recent)
+
+            # Global history (weighted by weight_global)
             global_hist = self.history.get_all_history()
-            if global_hist:
-                return sum(1 for r in global_hist if r.partner_action == Action.A) / len(global_hist)
-            
-            return 0.5
-        
+            if len(global_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in global_hist if r.partner_action == Action.A) / len(global_hist)
+                estimates.append(prob_A)
+                precisions.append(len(global_hist) * cfg.weight_global)
+
         elif info_treatment == "anonymous":
-            # Only use global history
+            # Can only observe global patterns
+
+            # Recent history (weighted by weight_recent)
+            recent_hist = self.history.get_recent_history(n=10)
+            if len(recent_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in recent_hist if r.partner_action == Action.A) / len(recent_hist)
+                estimates.append(prob_A)
+                precisions.append(len(recent_hist) * cfg.weight_recent)
+
+            # Global history (weighted by weight_global)
             global_hist = self.history.get_all_history()
-            if global_hist:
-                return sum(1 for r in global_hist if r.partner_action == Action.A) / len(global_hist)
-            
-            return 0.5
-        
+            if len(global_hist) >= cfg.min_history_for_belief:
+                prob_A = sum(1 for r in global_hist if r.partner_action == Action.A) / len(global_hist)
+                estimates.append(prob_A)
+                precisions.append(len(global_hist) * cfg.weight_global)
+
         else:
             # Default to full
             return self._estimate_partner_action(partner_id, partner_group, "full")
+
+        # Bayesian combination: precision-weighted average
+        if estimates:
+            total_precision = sum(precisions)
+            if total_precision > 0:
+                weighted_sum = sum(e * p for e, p in zip(estimates, precisions))
+                return weighted_sum / total_precision
+
+        # No history: uninformative prior
+        return 0.5
     
     def record_interaction(
         self,

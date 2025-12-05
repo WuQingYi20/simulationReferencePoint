@@ -81,7 +81,7 @@ def analyze_no_initial_phase(weight_configs, game_types, time_horizons, n_reps=3
                     "n_agents": 16,
                     "n_rounds": T,
                     "n_groups": 2,
-                    "lambda_loss": 2.0,
+                    "lambda_loss": 2.25,
                     "initial_group_bias": 0.8,  # Doesn't matter since n_initial_rounds=0
                     "n_initial_rounds": 0,  # KEY: NO initial phase!
                     "info_treatment": "full",

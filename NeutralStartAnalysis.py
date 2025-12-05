@@ -189,7 +189,7 @@ if __name__ == "__main__":
         "n_agents": 16,
         "n_rounds": 30,           # VERY SHORT
         "n_groups": 2,
-        "lambda_loss": 2.0,
+        "lambda_loss": 2.25,
         "initial_group_bias": 0.5,  # NO BIAS - groups start identical!
         "n_initial_rounds": 5,      # Shorter initial phase
         "info_treatment": "full",

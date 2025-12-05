@@ -340,7 +340,7 @@ if __name__ == "__main__":
         "n_rounds": 200,
         "n_groups": 2,
         "game_type": "coordination",
-        "lambda_loss": 2.0,
+        "lambda_loss": 2.25,
         "initial_group_bias": 0.8,
         "n_initial_rounds": 10,
         "info_treatment": "full",

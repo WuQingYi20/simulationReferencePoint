@@ -179,7 +179,7 @@ if __name__ == "__main__":
         "n_agents": 16,
         "n_rounds": 50,  # KEY CHANGE: 50 instead of 200
         "n_groups": 2,
-        "lambda_loss": 2.0,
+        "lambda_loss": 2.25,
         "initial_group_bias": 0.8,
         "n_initial_rounds": 10,
         "info_treatment": "full",
